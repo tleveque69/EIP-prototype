@@ -1,0 +1,43 @@
+<html>
+<body>
+<div id="wrapper" style="height: 100%">
+    <ul id="List">
+        
+    </ul>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script>
+
+function getSecondPart(str) {
+    return str.split('=')[1];
+}
+id = getSecondPart(window.location.search)
+console.log(id)
+const Http = new XMLHttpRequest();
+const url='https://bridge.buddyweb.fr/api/izheal/data/'+id;
+console.log(url);
+Http.open("GET", url);
+Http.responseType = 'json';
+Http.send();
+Http.onreadystatechange=(e)=>{
+console.log(Http.response)
+dmp = Http.response;
+var wrapper = $('#wrapper'), container;
+for (var property in dmp) {
+    wrapper.append(container);
+    container = $('<div id="item" class="container"></div>');
+    if (dmp.hasOwnProperty(property)) {
+         container.append('<div class="item">' + property +':    '+dmp[property]+'<div>');
+        console.log(dmp[property]);
+    }
+}
+};
+</script>
+<style type="text/css">
+    .item {
+        font-size: 4vw;
+    }
+</style>
